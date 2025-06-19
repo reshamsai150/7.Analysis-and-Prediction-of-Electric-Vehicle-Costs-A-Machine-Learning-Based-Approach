@@ -1,0 +1,16 @@
+
+{% extends "user/userbase.html" %}
+{% block title %}
+Student Flask App with CRUD
+{% endblock %}
+{% block content %}
+<h1>Welcome to my traing webpage</h1>
+<table border="2px">
+    <tr>
+      <tr><td>accuracy:</td><td>{{accuracy|safe}}</td></tr>
+      <tr><td>error:</td><td>{{errors|safe}}</td></tr>
+      
+    </tr>
+
+  </table>
+{% endblock %}

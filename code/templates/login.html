@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+{% block title %}
+Student Flask App with CRUD
+{% endblock %}
+
+{% block content %}
+<style>
+    .navya{
+        width: 300px;
+        margin: 1px;
+        border:10px;        
+        padding: 20px; /* Add padding */
+        background-color:green; /* Add background color */
+      
+    }
+</style>
+<center>
+<h1>Welcome to my Student loginform</h1>
+{% if error %}
+    <p style="color: red;">{{ error }}</p>
+{% endif %}
+<form action="/login" method="POST" class="navya">
+    <div>
+        <label for="loginid">Login ID:</label>
+        <input type="text" id="loginid" name="loginid" required>
+    </div>
+    <div>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+    </div>
+    <button type="submit">Login</button>
+</form></center>
+
+{% endblock %}
+
+
+

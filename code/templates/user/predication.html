@@ -1,0 +1,109 @@
+
+{% extends "user/userbase.html" %}
+{% block title %}
+Student Flask App with CRUD
+{% endblock %}
+{% block content %}
+<style>
+    .dani{
+        width: 300px;
+        margin: 1px;
+        border:10px;        
+        padding: 20px; /* Add padding */
+        background-color:green; /* Add background color */
+      
+    }
+</style>
+<h1>Welcome to my prediction</h1>
+<center>
+<h2>Submit Data</h2>
+<h1>predicted EV_COST:{{y_pred}}RUPERS</h1>
+   <form action="/predication" method="post">
+   <div>
+    <label for="AccelSec">AccelSec:</label>
+    <input type="number" id="AccelSec" name="AccelSec"  placeholder="range is 2.1to22.4"  required>
+   </div><br> 
+      
+   <div>
+    <label for="TopSpeed_KmH">TopSpeed_KmH:</label>
+    <input type="number" id="TopSpeed_KmH" name="TopSpeed_KmH" placeholder="range is 123to410  " required>
+  </div><br> 
+
+  <div>
+    <label for="Range_Km">Range_Km:</label>
+    <input type="number" id="Range_Km" name="Range_Km" placeholder="range is 95 to 970" required>
+  </div><br>
+
+  <div>
+    <label>Battery_Pack_Kwh:</label>
+    <input type="number" id="Battery_Pack_Kwh" name="Battery_Pack_Kwh" placeholder="range is 16.2to200 " required>
+  </div><br>
+  <div>    
+    <label for="Efficiency_WhKm">Efficiency_WhKm:</label>
+    <input type="number" id="Efficiency_WhKm" name="Efficiency_WhKm" placeholder="range is 104t0273" required>
+  </div><br>
+  <div>
+    <label for="FastCharge_KmH">FastCharge_KmH:</label>
+    <input type="number" id="FastCharge_KmH" name="FastCharge_KmH" placeholder="range is 0to940 " required>
+  </div><br>
+  <div>
+    <label for="RapidCharge">RapidCharge:</label>
+    <select id="RapidCharge" name="RapidCharge" required>
+      <option value="">Select....</option>
+      <option value="0">No</option>
+      <option value="1">Yes</option>
+    </select>
+  </div><br>
+  <div>
+    <label for="PlugType">PlugType:</label>
+    <select id="PlugType" name="PlugType" required>
+      <option value="">Select....</option>
+      <option value="1">Type 2 CCS</option>
+      <option value="2">Type 2</option>
+      <option value="3">Type 2 CHAdeMO</option>
+    </select>
+  </div><br>
+  <div>
+    <label for="PowerTrain">PowerTrain:</label>
+    <select id="PowerTrain" name="PowerTrain" required>
+      <option value="">Select....</option>
+      <option value="1">AWD</option>
+      <option value="2">FWD</option>
+      <option value="3">RWD</option>
+    </select>
+  </div><br>
+  <div>
+    <label for="BodyStyle">BodyStyle:</label>
+    <select id="BodyStyle" name="BodyStyle" required>
+      <option value="">Select....</option>
+      <option value="1">SUV</option>
+      <option value="2">Hatchback</option>
+      <option value="3">Sedan</option>
+      <option value="4">Liftback</option>
+      <option value="5">Pickup</option>
+      <option value="6">Cabrio</option>
+      <option value="7">SPV</option>
+    </select>
+  </div><br>
+  <div>
+    <label for="Segment">Segment:</label>
+    <select id="Segment" name="Segment" required>
+      <option value="">Select....</option>
+      <option value="6">A</option>
+      <option value="2">B</option>
+      <option value="1">C</option>
+      <option value="3">D</option>
+      <option value="5">E</option>
+      <option value="4">F</option>
+      <option value="7">N</option>
+    </select>
+  </div><br>
+  <div>
+    <label for="Seats">Seats:</label>
+    <input type="number" id="Seats" name="Seats" placeholder="range is 2to7" required>  
+  </div><br>  
+    <button type="submit">Submit</button>
+  </form>
+  </center>
+
+{% endblock %}

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>{% block title %}{% endblock %}</title>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='site.css')}}" />
+    </head>
+
+    <body>
+        <div class="navbar">
+            <a href="{{ url_for('home') }}" class="navbar-brand">Home</a>
+            <a href="{{ url_for('enternew') }}" class="navbar-item">StudentRegisterForm</a>
+            <a href="{{ url_for('list') }}" class="navbar-item">StudentsList</a>
+            <a href="{{ url_for('login') }}" class="navbar-item">LoginForm</a>
+
+        </div>
+
+        <div class="body-content">
+            {% block content %}
+            {% endblock %}
+            <hr/>
+            <footer>
+                <p><img src="{{ url_for('static', filename='dp1.jpg')}}" width="100%"></p>
+            </footer>
+        </div>
+       
+        <div class="dani">
+            <p>&copy; 2024 Your Website. All rights reserved. In DataPoint</p>
+        </div>
+    
+    
+    </body>
+</html>
