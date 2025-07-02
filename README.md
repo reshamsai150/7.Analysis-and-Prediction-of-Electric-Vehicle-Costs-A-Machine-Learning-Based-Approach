@@ -70,8 +70,7 @@ We welcome contributions! Please follow these steps:
 3. **Fork the repository** and create a new branch for your changes.
 4. **Submit a pull request** with a clear description of your changes.
 
-Refer to [CONTRIBUTING.md](contributing
-.md) and [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) for more details.
+
 
 ---
 
