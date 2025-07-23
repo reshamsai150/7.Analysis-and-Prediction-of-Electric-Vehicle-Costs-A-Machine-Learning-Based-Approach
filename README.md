@@ -70,6 +70,11 @@ We welcome contributions! Please follow these steps:
 3. **Fork the repository** and create a new branch for your changes.
 4. **Submit a pull request** with a clear description of your changes.
 
+## 📄 License
+
+This project is licensed under the [MIT License](LICENSE).
+
+
 
 
 ---
