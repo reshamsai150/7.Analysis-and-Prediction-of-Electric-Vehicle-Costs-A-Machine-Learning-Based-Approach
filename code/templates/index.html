@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>EV Charging Cost Estimator</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+      padding: 40px;
+    }
+    h1 {
+      text-align: center;
+    }
+    form {
+      background-color: white;
+      padding: 20px;
+      max-width: 500px;
+      margin: 0 auto;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+    }
+    input, select, button {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+    }
+    .result {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 1.2rem;
+      color: green;
+    }
+    .error {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 1.1rem;
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <h1>EV Charging Cost Estimator</h1>
+
+  <form method="POST">
+    <label for="state">Select your state:</label>
+    <select id="state" name="state" required>
+      <option value="">-- Select State --</option>
+      {% for s in states %}
+        <option value="{{ s }}" {% if s == state %}selected{% endif %}>{{ s }}</option>
+      {% endfor %}
+    </select>
+
+    <label for="battery_capacity">Battery Capacity (kWh):</label>
+    <input type="number" name="battery_capacity" id="battery_capacity" step="0.1" required value="{{ battery_capacity or '' }}">
+
+    <button type="submit">Estimate Cost</button>
+  </form>
+
+  {% if error %}
+    <div class="error">{{ error }}</div>
+  {% endif %}
+
+  {% if cost_home is defined and cost_public is defined %}
+    <div class="result">
+      <p><strong>Estimated Cost (Home Charging):</strong> ₹{{ cost_home }}</p>
+      <p><strong>Estimated Cost (Public Charging):</strong> ₹{{ cost_public }}</p>
+    </div>
+
+    <canvas id="compareChart" width="400" height="200" style="margin-top: 20px;"></canvas>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+  const ctx = document.getElementById('compareChart').getContext('2d');
+  if (window.costChart) {
+    window.costChart.destroy();
+  }
+
+  window.costChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['Home Charging', 'Public Charging'],
+      datasets: [{
+        label: 'Estimated Cost (₹)',
+        data: [{{ cost_home }}, {{ cost_public }}],
+        backgroundColor: ['#4CAF50', '#FF7043'],
+        borderRadius: 10,
+        barThickness: 60,
+        hoverBackgroundColor: ['#66BB6A', '#FF8A65']
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        tooltip: {
+          callbacks: {
+            label: function(context) {
+              return ` ₹${context.parsed.y.toFixed(2)}`;
+            }
+          },
+          backgroundColor: '#333',
+          titleColor: '#fff',
+          bodyColor: '#fff'
+        },
+        legend: {
+          display: false
+        },
+        title: {
+          display: true,
+          text: 'Home vs Public EV Charging Cost',
+          color: '#222',
+          font: {
+            size: 18,
+            weight: 'bold'
+          }
+        }
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks: {
+            color: '#444',
+            font: {
+              size: 14
+            }
+          },
+          grid: {
+            color: '#eee'
+          }
+        },
+        x: {
+          ticks: {
+            color: '#444',
+            font: {
+              size: 14
+            }
+          },
+          grid: {
+            display: false
+          }
+        }
+      }
+    }
+  });
+</script>
+
+  {% endif %}
+</body>
+</html>
