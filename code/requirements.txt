@@ -5,3 +5,7 @@ scikit-learn
 numpy
 matplotlib
 joblib
+tensorflow>=2.10.0
+seaborn
+xgboost
+plotly 
