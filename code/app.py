@@ -6,7 +6,12 @@
 from flask import Flask
 from flask import render_template
 from flask import request,session, flash
+#from ev_stations.maps import ev_map
+from ev_stations.maps import ev_map as generate_map 
+from ev_stations.dash import gen_dashboard
+
 import sqlite3
+import os 
 
 app = Flask(__name__)
 
@@ -488,6 +493,34 @@ def predication():
         return render_template('user/predication.html', y_pred=predictions[0])
     
     return render_template('user/predication.html')
+
+
+@app.route("/map_view")
+def map_view():
+    return render_template("ev_maps.html")
+
+@app.route("/locations",methods=['GET','POST'])
+def locations():
+    ev_path = os.path.join("media","ev_final.xlsx")
+    df= pd.read_excel(ev_path)
+    cities = sorted(df['city'].dropna().unique())
+
+    selected_city = None
+    map_file= None
+
+    if request.method=="POST":
+        selected_city =request.form.get("city")
+        generate_map(selected_city)
+        map_file ="ev_maps.html"
+
+    return render_template("user/location.html", cities= cities,map_file= map_file,selected_city=selected_city)
+
+
+@app.route("/dashboard",methods=["GET","POST"])
+def dashboard():
+    chart = gen_dashboard()
+    return render_template("user/dashboard.html",chart=chart)
+
 
 if __name__ == '__main__':
     app.run(debug=True,port=8000)
