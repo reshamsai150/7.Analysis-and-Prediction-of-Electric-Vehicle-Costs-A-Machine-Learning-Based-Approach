@@ -1,7 +1,21 @@
-Flask
-gunicorn
-pandas
-scikit-learn
-numpy
-matplotlib
-joblib
+
+# A simple framework for building complex web applications
+Flask==3.1.1
+
+# WSGI HTTP Server for UNIX
+gunicorn==23.0.0
+
+# Powerful data structures for data analysis, time series, and statistics
+pandas==2.3.1
+
+# A set of python modules for machine learning and data mining
+scikit-learn==1.7.1
+
+# Fundamental package for array computing in Python
+numpy==2.3.1
+
+# Python plotting package
+matplotlib==3.10.3
+
+# Lightweight pipelining with Python functions
+joblib==1.5.1
