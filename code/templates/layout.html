@@ -12,8 +12,12 @@
             <a href="{{ url_for('enternew') }}" class="navbar-item">StudentRegisterForm</a>
             <a href="{{ url_for('list') }}" class="navbar-item">StudentsList</a>
             <a href="{{ url_for('login') }}" class="navbar-item">LoginForm</a>
-
+            <!-- Adding toggle button -->  
+            <!-- Contributor : 6vam4arya -->
+            <button class="toggle">🌙 Eclipsed Mode</button>
         </div>
+
+        <h1>Welcome to my Student Flask App!</h1>
 
         <div class="body-content">
             {% block content %}
@@ -27,7 +31,84 @@
         <div class="dani">
             <p>&copy; 2024 Your Website. All rights reserved. In DataPoint</p>
         </div>
-    
+
+        <!-- Toggle Mode Button Styling -->
+         <!-- Contributor : 6vam4arya -->
+         <style>
+            body {
+              transition: background 0.8s ease, color 0.8s ease;
+            }
+           .toggle{
+            margin-left:80%; 
+            transform:translateY(-25px);
+            padding: 1rem 2rem;
+            font-size: 1.2rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            background: linear-gradient(135deg, #6e8efb, #a777e3);
+            color: white;
+            box-shadow: 0 0 20px rgba(166, 119, 227, 0.5);
+            position: relative;
+            overflow: hidden;
+            }
+            
+            .toggle::before {
+                content: '';
+                position: absolute;
+                top: -50%;
+                left: -50%;
+                width: 200%;
+                height: 200%;
+                background: radial-gradient(circle, rgba(255,255,255,0.3), transparent 70%);
+                transform: scale(0);
+                transition: transform 0.5s ease;
+            }
+            
+            .toggle:hover::before {
+                transform: scale(1);
+            }
+            
+            .toggle.night {
+                background: linear-gradient(135deg, #232526, #414345);
+                box-shadow: 0 0 25px rgba(255, 255, 255, 0.1);
+            }
+            
+            body.night-mode {
+                background: #1a1a2e;
+                color: #f5f5f5;
+            }
+
+         </style>
+
+         <!-- Adding JavaScript Logic for toggling -->
+          <!-- Contributor : 6vam4arya -->
+          <script>
+          const toggle = document.querySelector('.toggle'); 
+          const body = document.body;
+          const heading = document.querySelector('h1');
+
+
+          toggle.addEventListener('click', () => {
+                const currentBackground = window.getComputedStyle(body).backgroundColor;
+
+
+                if (currentBackground === 'rgb(255, 255, 255)') { 
+                    body.style.backgroundColor = 'black';
+                    toggle.textContent = '🌤️ Daylight Mode';
+                    heading.style.color='rgb(255, 255, 255)';
+                    
+                } 
+                
+                else {
+                    body.style.backgroundColor = 'white';
+                    toggle.textContent = '🌙 Eclipsed Mode';
+                    heading.style.color='black';
+                }
+            });
+</script>
     
     </body>
 </html>
