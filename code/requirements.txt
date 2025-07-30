@@ -19,3 +19,12 @@ matplotlib==3.10.3
 
 # Lightweight pipelining with Python functions
 joblib==1.5.1
+
+# Streamlit for interactive web applications
+streamlit==1.28.1
+
+# Interactive plotting library
+plotly==5.17.0
+
+# Additional data analysis libraries
+seaborn==0.12.2
