@@ -78,84 +78,79 @@
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-      const ctx = document.getElementById('compareChart').getContext('2d');
-      if (window.costChart) {
-        window.costChart.destroy();
-      }
+  const ctx = document.getElementById('compareChart').getContext('2d');
+  if (window.costChart) {
+    window.costChart.destroy();
+  }
 
-      window.costChart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-          labels: ['Home Charging', 'Public Charging'],
-          datasets: [{
-            label: 'Estimated Cost (₹)',
-            data: [{{ cost_home }}, {{ cost_public }}],
-            backgroundColor: ['#4CAF50', '#FF7043'],
-            borderRadius: 10,
-            barThickness: 60,
-            hoverBackgroundColor: ['#66BB6A', '#FF8A65']
-          }]
-        },
-        options: {
-          responsive: true,
-          plugins: {
-            tooltip: {
-              callbacks: {
-                label: function(context) {
-                  return ` ₹${context.parsed.y.toFixed(2)}`;
-                }
-              },
-              backgroundColor: '#333',
-              titleColor: '#fff',
-              bodyColor: '#fff'
-            },
-            legend: {
-              display: false
-            },
-            title: {
-              display: true,
-              text: 'Home vs Public EV Charging Cost',
-              color: '#222',
-              font: {
-                size: 18,
-                weight: 'bold'
-              }
+  window.costChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['Home Charging', 'Public Charging'],
+      datasets: [{
+        label: 'Estimated Cost (₹)',
+        data: [{{ cost_home }}, {{ cost_public }}],
+        backgroundColor: ['#4CAF50', '#FF7043'],
+        borderRadius: 10,
+        barThickness: 60,
+        hoverBackgroundColor: ['#66BB6A', '#FF8A65']
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        tooltip: {
+          callbacks: {
+            label: function(context) {
+              return ` ₹${context.parsed.y.toFixed(2)}`;
             }
           },
-          scales: {
-            y: {
-              beginAtZero: true,
-              ticks: {
-                color: '#444',
-                font: {
-                  size: 14
-                }
-              },
-              grid: {
-                color: '#eee'
-              }
-            },
-            x: {
-              ticks: {
-                color: '#444',
-                font: {
-                  size: 14
-                }
-              },
-              grid: {
-                display: false
-              }
-            }
+          backgroundColor: '#333',
+          titleColor: '#fff',
+          bodyColor: '#fff'
+        },
+        legend: {
+          display: false
+        },
+        title: {
+          display: true,
+          text: 'Home vs Public EV Charging Cost',
+          color: '#222',
+          font: {
+            size: 18,
+            weight: 'bold'
           }
         }
-      });
-    </script>
-  {% endif %}
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks: {
+            color: '#444',
+            font: {
+              size: 14
+            }
+          },
+          grid: {
+            color: '#eee'
+          }
+        },
+        x: {
+          ticks: {
+            color: '#444',
+            font: {
+              size: 14
+            }
+          },
+          grid: {
+            display: false
+          }
+        }
+      }
+    }
+  });
+</script>
 
-  <div style="text-align:center; margin-top: 30px;">
-    <a href="/charging-locator">
-      <button style="width:250px; padding:15px;">🔌 Go to Charging Station Locator</button>
-    </a>
-  </div>
+  {% endif %}
 </body>
 </html>
