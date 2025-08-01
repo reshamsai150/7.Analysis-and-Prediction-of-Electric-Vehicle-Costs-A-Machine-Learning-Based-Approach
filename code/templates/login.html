@@ -1,37 +1,112 @@
-{% extends "layout.html" %}
-{% block title %}
-Student Flask App with CRUD
-{% endblock %}
+<!-- Design LogIn Page for the website from scratch -->
+<!-- Contributor : 6vam4arya -->
 
-{% block content %}
-<style>
-    .navya{
-        width: 300px;
-        margin: 1px;
-        border:10px;        
-        padding: 20px; /* Add padding */
-        background-color:green; /* Add background color */
-      
-    }
-</style>
-<center>
-<h1>Welcome to my Student loginform</h1>
-{% if error %}
-    <p style="color: red;">{{ error }}</p>
-{% endif %}
-<form action="/login" method="POST" class="navya">
-    <div>
-        <label for="loginid">Login ID:</label>
-        <input type="text" id="loginid" name="loginid" required>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login to ZipTales</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../static/login.css"/>
+</head>
+<body class="bg-gradient">
+    <div class="container">
+        <div class="text-center">            
+            <h2 class="title">Welcome to Student Flask App</h2>
+            <p class="subtitle">Sign in to verify news and join our community</p>
+        </div>
+
+        <div class="form-container">
+            <form id="login-form" class="form" onsubmit="handleSubmit(event)">
+                <div id="error-message" class="error-message hidden"></div>
+
+                <div class="input-group">
+                    <label for="email" class="label">Email Address</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-envelope icon"></i>
+                        <input type="email" id="email" required placeholder="Enter your email" class="input" />
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="password" class="label">Password</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-lock icon"></i>
+                        <input type="password" id="password" required placeholder="Enter your password" class="input" />
+                        <button type="button" class="toggle-password" onclick="togglePasswordVisibility()">
+                            <i class="fas fa-eye" id="eye-icon"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="options">
+                    <div class="remember-me">
+                        <input type="checkbox" id="remember-me" />
+                        <label for="remember-me" class="label">Remember me</label>
+                    </div>
+                    <button type="button" class="forgot-password" onclick="showForgotPassword()">Forgot password?</button>
+                </div>
+
+                <button type="submit" class="submit-button">Sign In</button>
+
+                <div class="divider">
+                    <span>Or continue with</span>
+                </div>
+
+                <button type="button" class="google-button" onclick="handleGoogleLogin()">
+                    <i class="fab fa-chrome"></i>
+                    Sign in with Google
+                </button>
+            </form>
+
+            <div class="signup-link">
+                <p>Don't have an account? <a href="/signup" class="link">Sign up here</a></p>
+            </div>
+        </div>
     </div>
-    <div>
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required>
-    </div>
-    <button type="submit">Login</button>
-</form></center>
 
-{% endblock %}
+    <script>
+        function handleSubmit(event) {
+            event.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const errorMessage = document.getElementById('error-message');
 
+            errorMessage.classList.add('hidden');
 
+            // Simulate login process
+            if (email === "test@example.com" && password === "password") {
+                alert("Login successful!");
+                // Redirect to home or dashboard
+            } else {
+                errorMessage.textContent = "Invalid email or password. Please check your credentials and try again.";
+                errorMessage.classList.remove('hidden');
+            }
+        }
 
+        function togglePasswordVisibility() {
+            const passwordInput = document.getElementById('password');
+            const eyeIcon = document.getElementById('eye-icon');
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                eyeIcon.classList.remove('fa-eye');
+                eyeIcon.classList.add('fa-eye-slash');
+            } else {
+                passwordInput.type = "password";
+                eyeIcon.classList.remove('fa-eye-slash');
+                eyeIcon.classList.add('fa-eye');
+            }
+        }
+
+        function showForgotPassword() {
+            alert("Forgot password functionality not implemented.");
+        }
+
+        function handleGoogleLogin() {
+            alert("Google login functionality not implemented.");
+        }
+    </script>
+</body>
+</html>
