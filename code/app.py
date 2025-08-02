@@ -490,6 +490,32 @@ def predication():
         # Make prediction
         predictions = rf_regressor.predict(X_test_imputed)
         
+        # Enhancement: Option to save results to CSV from UI
+        if request.form.get("save_csv") == "yes":
+            import csv
+            filename = "ev_cost_results.csv"
+            file_exists = os.path.isfile(filename)
+            with open(filename, mode="a", newline="") as file:
+                fieldnames = ["AccelSec", "TopSpeed_KmH", "Range_Km", "Battery_Pack_Kwh", "Efficiency_WhKm", "FastCharge_KmH",
+                              "RapidCharge", "PowerTrain", "PlugType", "BodyStyle", "Segment", "Seats", "predicted_cost"]
+                writer = csv.DictWriter(file, fieldnames=fieldnames)
+                if not file_exists:
+                    writer.writeheader()
+                writer.writerow({
+                    "AccelSec": AccelSec,
+                    "TopSpeed_KmH": TopSpeed_KmH,
+                    "Range_Km": Range_Km,
+                    "Battery_Pack_Kwh": Battery_Pack_Kwh,
+                    "Efficiency_WhKm": Efficiency_WhKm,
+                    "FastCharge_KmH": FastCharge_KmH,
+                    "RapidCharge": RapidCharge,
+                    "PowerTrain": PowerTrain,
+                    "PlugType": PlugType,
+                    "BodyStyle": BodyStyle,
+                    "Segment": Segment,
+                    "Seats": Seats,
+                    "predicted_cost": predictions[0]
+                })
         return render_template('user/predication.html', y_pred=predictions[0])
     
     return render_template('user/predication.html')
