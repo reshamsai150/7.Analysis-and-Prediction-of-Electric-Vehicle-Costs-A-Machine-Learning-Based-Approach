@@ -8,7 +8,7 @@ if defined _OLD_CODEPAGE (
     "%SystemRoot%\System32\chcp.com" 65001 > nul
 )
 
-set VIRTUAL_ENV=C:\Users\kumar\Desktop\GSSOC'25\7.Analysis-and-Prediction-of-Electric-Vehicle-Costs-A-Machine-Learning-Based-Approach\env
+set VIRTUAL_ENV=C:\Users\A\Desktop\codeman\GSSOC\EV-Cost-Prediction\env
 
 if not defined PROMPT set PROMPT=$P$G
 
