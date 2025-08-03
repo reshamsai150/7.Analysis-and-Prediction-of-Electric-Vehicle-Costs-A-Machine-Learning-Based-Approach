@@ -1,0 +1,28 @@
+/* Map Container Styling */
+#map {
+  height: 500px;
+  max-width: 900px;
+  margin: 30px auto;
+  border-radius: 12px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+  border: 2px solid #ddd;
+}
+
+/* Station List Styling */
+.station-list {
+  max-width: 900px;
+  margin: 20px auto;
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.station-item {
+  border-bottom: 1px solid #eee;
+  padding: 12px 0;
+}
+
+.station-item:last-child {
+  border-bottom: none;
+}
