@@ -1,6 +1,138 @@
+
 {% extends "layout.html" %}
-{% block title %}
-Student Flask App with CRUD
+
+{% block extra_style %}
+<style>
+    body {
+        background: url("{{ url_for('static', filename='dp1.jpg') }}") no-repeat center center fixed;
+        background-size: cover;
+    }
+    .about-section {
+        max-width: 700px;
+        margin: 36px auto 22px auto;
+        background: rgba(255,255,255,0.78);
+        border-radius: 18px;
+        box-shadow: 0 4px 26px rgba(90, 230, 179, 0.18);
+        padding: 32px 32px 28px 32px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+    }
+    .about-carousel {
+        position: relative;
+        width: 100%;
+        min-height: 120px;
+    }
+    .about-slide {
+        display: none;
+        font-size: 1.18rem;
+        color: #20322c;
+        font-weight: 500;
+        padding: 10px 18px;
+        transition: opacity 0.6s;
+    }
+    .about-slide.active {
+        display: block;
+        animation: fadeIn 0.7s;
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+    .carousel-dots {
+        display: flex;
+        justify-content: center;
+        margin-top: 16px;
+    }
+    .carousel-dot {
+        height: 11px;
+        width: 11px;
+        margin: 0 5px;
+        background-color: #28d199;
+        border-radius: 50%;
+        display: inline-block;
+        opacity: 0.33;
+        cursor: pointer;
+        transition: opacity 0.2s;
+    }
+    .carousel-dot.active {
+        opacity: 1;
+        box-shadow: 0 2px 6px #28d19955;
+    }
+    @media (max-width: 600px) {
+        .about-section {
+            padding: 18px 8px 18px 8px;
+        }
+        .about-slide {
+            font-size: 1.05rem;
+            padding: 6px 3px;
+        }
+    }
+</style>
 {% endblock %}
+
 {% block content %}
+    <h1>EVC App</h1>
+
+    <!-- About Us Section with Carousel -->
+    <div class="about-section">
+        <h2 style="color:#28d199; letter-spacing:1.3px; font-size:1.5rem; font-weight:700; margin-bottom:14px;">What we do</h2>
+        <div class="about-carousel">
+            <div class="about-slide active">
+                🌱 <b>EVC App</b> is your go-to solution for smart, eco-friendly Electric Vehicle Cost Analysis & Prediction web app.
+            </div>
+            <div class="about-slide">
+                🚗 We enable seamless EV station search, real-time analytics, and a personalized experience for students, colleges, and urban residents.
+            </div>
+            <div class="about-slide">
+                ⚡ Our mission: Accelerate India's transition to clean mobility by making technology simple, accessible, and impactful.
+            </div>
+            <div class="about-slide">
+                🌏 Built by passionate students and engineers, we believe in sustainable innovation, community support, and digital empowerment.
+            </div>
+        </div>
+        <div class="carousel-dots">
+            <span class="carousel-dot active"></span>
+            <span class="carousel-dot"></span>
+            <span class="carousel-dot"></span>
+            <span class="carousel-dot"></span>
+        </div>
+    </div>
+
+    <!-- (Other home page content can go here) -->
+
+    <script>
+        // Simple Carousel Logic
+        const slides = document.querySelectorAll('.about-slide');
+        const dots = document.querySelectorAll('.carousel-dot');
+        let currentSlide = 0;
+        let carouselInterval = setInterval(nextSlide, 3700);
+
+        function showSlide(idx) {
+            slides.forEach((slide, i) => {
+                slide.classList.toggle('active', i === idx);
+                dots[i].classList.toggle('active', i === idx);
+            });
+            currentSlide = idx;
+        }
+
+        function nextSlide() {
+            let next = (currentSlide + 1) % slides.length;
+            showSlide(next);
+        }
+
+        // Dot click support
+        dots.forEach((dot, i) => {
+            dot.addEventListener('click', () => {
+                showSlide(i);
+                clearInterval(carouselInterval);
+                carouselInterval = setInterval(nextSlide, 3700);
+            });
+        });
+
+        // Init
+        showSlide(0);
+    </script>
 {% endblock %}
+
+
