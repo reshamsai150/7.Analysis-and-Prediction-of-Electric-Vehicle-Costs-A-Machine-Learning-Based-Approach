@@ -1,43 +1,352 @@
-{% extends "layout.html" %}
-{% block title %}
-Add New Student
-{% endblock %}
-{% block content %}
-<style>
-    .supriya{
-        width: 300px;
-        margin: 1px;
-        border:10px;        
-        padding: 20px; /* Add padding */
-        background-color:green; /* Add background color */
-      
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Registration Form</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            background: url("{{ url_for('static', filename='background.jpg') }}") no-repeat center center fixed;
+            background-size: cover;
+        }
+       .navbar {
+    width: 100%;
+    background: rgba(30, 30, 30, 0.75);
+    color: #fff;
+    font-size: 1.25rem;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 99;
+    box-shadow: 0 2px 14px rgba(0,0,0,0.12);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 38px;
+    height: 58px;
+}
+
+.navbar-left {
+    display: flex;
+    align-items: center;
+    gap: 26px;
+}
+
+.navbar-brand {
+    font-weight: bold;
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.13rem;
+    padding-right: 12px;
+    transition: color 0.15s;
+}
+
+.navbar-item {
+    color: #fff;
+    text-decoration: none;
+    opacity: 0.93;
+    font-size: 1rem;
+    transition: color 0.17s, opacity 0.17s;
+    padding: 0 2px;
+}
+.navbar-brand:hover, .navbar-item:hover {
+    color: #d1b18d;
+    opacity: 1;
+}
+
+.navbar-right {
+    font-weight: 700;
+    letter-spacing: 1.3px;
+    font-size: 1.22rem;
+    color: #fff;
+    text-align: right;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.10);
+}
+
+@media (max-width: 700px) {
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+        height: auto;
+        padding: 10px 8px;
     }
-</style>
-<center>
-        <form class="supriya" action="{{ url_for('addrec') }}" method="POST">
-            <h3>Please Add the New Student Information:</h3>
-            Name<br>
-            <input type="text" name="nm" /><br>
+    .navbar-right {
+        margin-top: 6px;
+        font-size: 1.05rem;
+    }
+}
 
-            Loginid<br>
-            <input type="text" name="loginid" /><br>
+        .main-content {
+            margin-top: 70px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 92vh;
+        }
+        .container {
+            display: flex;
+            max-width: 900px;
+            background: rgba(255,255,255,0.73);
+            border-radius: 14px;
+            box-shadow: 0 6px 32px rgba(0,0,0,0.19);
+            overflow: hidden;
+            margin: 40px auto 30px auto;
+            /* glass effect */
+            backdrop-filter: blur(4px);
+        }
+        .form-section {
+            flex: 1 1 430px;
+            padding: 38px 36px 24px 36px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: transparent;
+        }
+        .form-header {
+            background: rgba(32,32,32,0.68);
+            color: #fff;
+            text-align: center;
+            font-size: 1.6rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            border-radius: 8px 8px 0 0;
+            padding: 18px 0 12px 0;
+            margin-bottom: 18px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+        }
+        .form-group {
+            margin-bottom: 16px;
+        }
+        label {
+            font-size: 0.95rem;
+            font-style: italic;
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 3px;
+            display: block;
+        }
+        input[type="text"], input[type="email"], input[type="password"] {
+            width: 100%;
+            padding: 10px 13px;
+            border: 1.5px solid #bbb;
+            border-radius: 3.5px;
+            font-size: 1rem;
+            margin-top: 2px;
+            background: #f7f7fa;
+            transition: border 0.2s;
+        }
+        input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus {
+            border: 2px solid #a05b56;
+            outline: none;
+        }
+        .form-row {
+            display: flex;
+            gap: 8px;
+        }
+        .form-row > .form-group {
+            flex: 1;
+        }
+        .form-note {
+            font-size: 0.92rem;
+            color: #c64c4c;
+            margin-top: 3px;
+            margin-bottom: -8px;
+        }
+        .submit-btn {
+            background: #a05b56;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            padding: 13px 0;
+            font-size: 1.09rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 8px;
+            box-shadow: 0 1px 5px rgba(0,0,0,0.08);
+            transition: background 0.2s;
+        }
+        .submit-btn:hover {
+            background: #884a45;
+        }
+       .image-section {
+    flex: 1 1 350px;
+    min-width: 320px;
+    min-height: 430px;
+    max-width: 380px;
+    display: flex;
+    align-items: stretch;
+    justify-content: stretch;
+    background: transparent;
+    overflow: hidden;
+}
+.image-section img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 0 14px 14px 0;
+    min-height: 430px;
+    min-width: 320px;
+    max-height: 700px;
+    display: block;
+}
 
-            email<br>
-            <input type="email" name="email" /><br>
+        footer {
+            width: 100vw;
+            text-align: center;
+            background: rgba(30, 30, 30, 0.75);
+            color: white;
+            font-size: 1.07rem;
+            margin-top: 16px;
+            padding: 14px 0 12px 0;
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            z-index: 10;
+            box-shadow: 0 -1px 5px rgba(0,0,0,0.04);
+        }
+        @media (max-width: 1000px) {
+            .container {
+                flex-direction: column;
+                max-width: 97vw;
+            }
+            .image-section {
+                min-height: 210px;
+                min-width: 90vw;
+            }
+            .image-section img {
+                min-width: 100%;
+                min-height: 210px;
+                max-height: 210px;
+                border-radius: 0 0 8px 8px;
+            }
+        }
+    </style>
+    <script>
+        function validateForm() {
+            let fname = document.forms["regform"]["fname"].value.trim();
+            let lname = document.forms["regform"]["lname"].value.trim();
+            let loginid = document.forms["regform"]["loginid"].value.trim();
+            let email = document.forms["regform"]["email"].value.trim();
+            let addr = document.forms["regform"]["addr"].value.trim();
+            let city = document.forms["regform"]["city"].value.trim();
+            let zip = document.forms["regform"]["zip"].value.trim();
+            let pass1 = document.forms["regform"]["password"].value;
+            let pass2 = document.forms["regform"]["confirm_password"].value;
 
-            password<br>
-            <input type="password" name="password" /><br>
+            if(fname.length === 0 || lname.length === 0){
+                alert("First Name and Last Name are required.");
+                return false;
+            }
+            if(loginid.length === 0){
+                alert("Login ID is required.");
+                return false;
+            }
+            let re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if(!re.test(email)){
+                alert("Please enter a valid email address.");
+                return false;
+            }
+            if(addr.length === 0){
+                alert("Address is required.");
+                return false;
+            }
+            if(city.length === 0){
+                alert("City is required.");
+                return false;
+            }
+            if(!/^\d{6}$/.test(zip)){
+                alert("Enter a valid 6-digit ZIP code.");
+                return false;
+            }
+            if(pass1.length < 6){
+                alert("Password must be at least 6 characters.");
+                return false;
+            }
+            if(pass1 !== pass2){
+                alert("Passwords do not match.");
+                return false;
+            }
+            return true;
+        }
+    </script>
+</head>
+<body>
+    <div class="navbar">
+    <div class="navbar-left">
+        <a href="{{ url_for('home') }}" class="navbar-brand">Home</a>
+        <a href="{{ url_for('enternew') }}" class="navbar-item">StudentRegisterForm</a>
+        <a href="{{ url_for('list') }}" class="navbar-item">StudentsList</a>
+        <a href="{{ url_for('login') }}" class="navbar-item">LoginForm</a>
+    </div>
+    
+</div>
 
-            Address<br>
-            <textarea name="add"></textarea><br>
+    <div class="main-content">
+        <div class="container">
+            <div class="form-section">
+                <div class="form-header">
+                    STUDENT REGISTRATION FORM
+                </div>
+                <form name="regform" action="{{ url_for('addrec') }}" method="post" onsubmit="return validateForm()">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="fname"><b>FIRST NAME:</b></label>
+                            <input type="text" id="fname" name="fname" placeholder="First Name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="lname"><b>LAST NAME:</b></label>
+                            <input type="text" id="lname" name="lname" placeholder="Last Name" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="loginid"><b>LOGIN ID:</b></label>
+                        <input type="text" id="loginid" name="loginid" placeholder="Login ID" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email"><b>EMAIL:</b></label>
+                        <input type="email" id="email" name="email" placeholder="Email" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="addr"><b>ADDRESS:</b></label>
+                            <input type="text" id="addr" name="addr" placeholder="Address" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="city"><b>CITY:</b></label>
+                            <input type="text" id="city" name="city" placeholder="City" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="zip"><b>ZIP:</b></label>
+                            <input type="text" id="zip" name="zip" placeholder="ZIP" maxlength="6" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="password"><b>PASSWORD:</b></label>
+                            <input type="password" id="password" name="password" placeholder="Password" minlength="6" required>
+                            <div class="form-note">Minimum of 6 characters</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="confirm_password" style="visibility:hidden;">Confirm</label>
+                            <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm Password" minlength="6" required>
+                        </div>
+                    </div>
+                    <button class="submit-btn" type="submit">SUBMIT</button>
+                </form>
+            </div>
+            <div class="image-section">
+                <img src="{{ url_for('static', filename='img2.png') }}" alt="img2">
+            </div>
+        </div>
+    </div>
+    <footer>
+        © 2024 Your Website. All rights reserved. In DataPoint
+    </footer>
+</body>
+</html>
 
-            City<br>
-            <input type="text" name="city" /><br>
 
-            Pin Code<br>
-            <input type="text" name="zip" /><br>
-
-            <input type="submit" value="Submit" /><br>
-        </form>
-    </center>
-{% endblock %}
