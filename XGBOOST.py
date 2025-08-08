@@ -36,7 +36,7 @@ parameter= ["Battery","Efficiency","Fast_charge","Range","Top_speed","accelerati
 X= df[parameter]
 y= df["Price.DE."] * conversion_rate
 
-from sklearn.model_selection import train_test_split , RandomizedSearchCV
+from sklearn.model_selection import train_test_split
 X_train, X_test, y_train, y_test = train_test_split(X,y,test_size=0.2,random_state=432)
 
 
@@ -47,35 +47,12 @@ X_train_sc = sc.fit_transform(X_train)  # convert all data into float data type
 X_test_sc = sc.transform(X_test)
 
 
-param_grid = {
-    'n_estimators': [100, 200],          
-    'max_depth': [3, 5],                 
-    'learning_rate': [0.05, 0.1],        # Moderate learning rates
-    'subsample': [0.8, 1.0],             # high subsampling
-    'colsample_bytree': [0.8, 1.0],      # high feature sampling
-}
 
 #XGBOOST
 from xgboost import XGBRegressor
 model = XGBRegressor()
-
-grid_search = RandomizedSearchCV(
-    estimator=model,
-    param_distributions=param_grid,  
-    n_iter=100,  # Number of parameter combinations to try (adjust as needed)
-    scoring='neg_mean_squared_error',
-    cv=5,
-    n_jobs=-1,
-    verbose=3,
-)
-
-grid_search.fit(X_train_sc, y_train)
-
-best_model = grid_search.best_estimator_
-print("\nBest parameters found:", grid_search.best_params_)
-
-
-y_pred_xgb_sc = best_model.predict(X_test_sc)
+model.fit(X_train_sc,y_train)
+y_pred_xgb_sc = model.predict(X_test_sc)
 mse = mean_squared_error(y_test, y_pred_xgb_sc)
 mae = mean_absolute_error(y_test, y_pred_xgb_sc)
 r2 = r2_score(y_test, y_pred_xgb_sc)
@@ -116,7 +93,7 @@ print("R^2 Score Random:", r2_random)
 #overall we found out that XGBOOST IS BEST AMONG ALL 3
 
 import matplotlib.pyplot as plt
-importances = best_model.feature_importances_
+importances = model.feature_importances_
 feature_names = X.columns
 plt.barh(feature_names, importances)
 plt.xlabel("Feature Importance")
