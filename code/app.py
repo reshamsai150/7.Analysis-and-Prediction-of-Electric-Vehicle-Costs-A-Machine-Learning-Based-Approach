@@ -1,3 +1,5 @@
+
+
 # Author: DANAIAH, NAVAYA University JNTUK KAKAINADA
 # Date: 03/4/2022
 # Description: This is a Flask App that uses SQLite3 to
@@ -20,7 +22,6 @@ app = Flask(__name__)
 def home():
     return render_template("home.html")
 
-
 def userhome():
     return render_template('user/userhome')
 # Route to form used to add a new student to the database
@@ -31,30 +32,31 @@ def enternew():
 # Route to add a new record (INSERT) student data to the database
 @app.route("/addrec", methods = ['POST', 'GET'])
 def addrec():
-    # Data will be available from POST submitted by the form
     if request.method == 'POST':
         try:
-            nm = request.form['nm']
-            addr = request.form['add']
-            city = request.form['city']
-            zip = request.form['zip']
+            fname = request.form['fname']
+            lname = request.form['lname']
+            name = f"{fname} {lname}"
             loginid = request.form['loginid']
             email = request.form['email']
+            addr = request.form['addr']
+            city = request.form['city']
+            zip_ = request.form['zip']
             password = request.form['password']
 
-            # Connect to SQLite3 database and execute the INSERT
             with sqlite3.connect('database.db') as con:
                 cur = con.cursor()
-                cur.execute("INSERT INTO students (name, loginid, email,  password, addr, city, zip) VALUES (?,?,?,?,?,?,?)",(nm, loginid, email, password, addr, city, zip))
-
+                cur.execute(
+                    "INSERT INTO students (name, loginid, email, password, addr, city, zip) VALUES (?, ?, ?, ?, ?, ?, ?)",
+                    (name, loginid, email, password, addr, city, zip_)
+                )
                 con.commit()
                 msg = "Record successfully added to database"
-        except:
+        except Exception as e:
             con.rollback()
-            msg = "Error in the INSERT"
+            msg = f"Error in the INSERT: {e}"
         finally:
             con.close()
-            # Send the transaction message to result.html
             return render_template('result.html',msg=msg)
 
 # Route to SELECT all data from the database and display in a table      
@@ -109,7 +111,6 @@ def editrec():
             loginid = request.form['loginid']
             email = request.form['email']
             password = request.form['password']
-
 
             # UPDATE a specific record in the database based on the rowid
             with sqlite3.connect('database.db') as con:
@@ -184,7 +185,6 @@ def dataset():
     path1 = pd.read_csv(path)
     data = path1.to_html()    
     return render_template('user/dataset.html',data=data)
-
 
 @app.route('/training')
 def training():
@@ -490,36 +490,9 @@ def predication():
         # Make prediction
         predictions = rf_regressor.predict(X_test_imputed)
         
-        # Enhancement: Option to save results to CSV from UI
-        if request.form.get("save_csv") == "yes":
-            import csv
-            filename = "ev_cost_results.csv"
-            file_exists = os.path.isfile(filename)
-            with open(filename, mode="a", newline="") as file:
-                fieldnames = ["AccelSec", "TopSpeed_KmH", "Range_Km", "Battery_Pack_Kwh", "Efficiency_WhKm", "FastCharge_KmH",
-                              "RapidCharge", "PowerTrain", "PlugType", "BodyStyle", "Segment", "Seats", "predicted_cost"]
-                writer = csv.DictWriter(file, fieldnames=fieldnames)
-                if not file_exists:
-                    writer.writeheader()
-                writer.writerow({
-                    "AccelSec": AccelSec,
-                    "TopSpeed_KmH": TopSpeed_KmH,
-                    "Range_Km": Range_Km,
-                    "Battery_Pack_Kwh": Battery_Pack_Kwh,
-                    "Efficiency_WhKm": Efficiency_WhKm,
-                    "FastCharge_KmH": FastCharge_KmH,
-                    "RapidCharge": RapidCharge,
-                    "PowerTrain": PowerTrain,
-                    "PlugType": PlugType,
-                    "BodyStyle": BodyStyle,
-                    "Segment": Segment,
-                    "Seats": Seats,
-                    "predicted_cost": predictions[0]
-                })
         return render_template('user/predication.html', y_pred=predictions[0])
     
     return render_template('user/predication.html')
-
 
 @app.route("/map_view")
 def map_view():
@@ -541,12 +514,11 @@ def locations():
 
     return render_template("user/location.html", cities= cities,map_file= map_file,selected_city=selected_city)
 
-
 @app.route("/dashboard",methods=["GET","POST"])
 def dashboard():
     chart = gen_dashboard()
     return render_template("user/dashboard.html",chart=chart)
 
-
 if __name__ == '__main__':
     app.run(debug=True,port=8000)
+
