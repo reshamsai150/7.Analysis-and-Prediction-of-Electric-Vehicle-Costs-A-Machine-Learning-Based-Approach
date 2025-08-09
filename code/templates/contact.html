@@ -3,16 +3,16 @@
 
 {% block extra_style %}
 <style>
-  /* Page background only for Contact */
-  html, body { margin: 0; padding: 0; overflow-x: hidden; } /* kill horizontal scroll */
+
+  html, body { margin: 0; padding: 0; overflow-x: hidden; } 
   body {
     min-height: 100vh;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: url("{{ url_for('static', filename='contact-page-bg.png') }}")
+    background: url("{{ url_for('static', filename='img.jpg') }}")
                 no-repeat center center fixed !important;
     background-size: cover !important;
   }
-  /* Keep navbar from overlapping; add bottom padding for fixed footer */
+ 
   .navbar { position: sticky !important; top: 0; }
   .main-content { margin-top: 0 !important; padding: 24px 0 92px !important; }
 </style>
@@ -20,15 +20,15 @@
 
 {% block content %}
 <style>
-  /* Compact, wide card */
+ 
   .contact-page-overlay{
     display:flex; align-items:center; justify-content:center;
-    padding: 24px 12px;         /* tighter all around */
+    padding: 24px 12px;       
   }
 
   .contact-container{
     display:flex;
-    width: min(1100px, 96vw);   /* wider but never spills viewport */
+    width: min(1100px, 96vw);   
     background: rgba(255,255,255,0.95);
     border-radius: 18px;
     overflow: hidden;
@@ -101,7 +101,7 @@
   <div class="contact-container">
     <!-- Left illustration -->
     <div class="contact-left">
-      <img src="{{ url_for('static', filename='contact.jpg') }}" alt="Contact Illustration">
+      <img src="{{ url_for('static', filename='contact.png') }}" alt="Contact Illustration">
       <h3>GET IN TOUCH</h3>
       <p>Available 24/7 — we’re here to help you anytime.</p>
     </div>
@@ -169,3 +169,5 @@
   });
 </script>
 {% endblock %}
+
+
