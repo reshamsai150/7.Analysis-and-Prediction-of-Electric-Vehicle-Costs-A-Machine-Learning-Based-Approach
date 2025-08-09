@@ -74,7 +74,7 @@
 {% block content %}
     <h1>EVC App</h1>
 
-    <!-- About Us Section with Carousel -->
+    
     <div class="about-section">
         <h2 style="color:#28d199; letter-spacing:1.3px; font-size:1.5rem; font-weight:700; margin-bottom:14px;">What we do</h2>
         <div class="about-carousel">
@@ -102,7 +102,7 @@
     <!-- (Other home page content can go here) -->
 
     <script>
-        // Simple Carousel Logic
+        
         const slides = document.querySelectorAll('.about-slide');
         const dots = document.querySelectorAll('.carousel-dot');
         let currentSlide = 0;
@@ -121,7 +121,7 @@
             showSlide(next);
         }
 
-        // Dot click support
+        
         dots.forEach((dot, i) => {
             dot.addEventListener('click', () => {
                 showSlide(i);
@@ -130,9 +130,10 @@
             });
         });
 
-        // Init
+      
         showSlide(0);
     </script>
 {% endblock %}
+
 
 
