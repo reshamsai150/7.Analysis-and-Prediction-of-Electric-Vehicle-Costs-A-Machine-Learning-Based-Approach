@@ -1,3 +1,7 @@
+Flask==3.1.1
+
+# WSGI HTTP Server for UNIX
+gunicorn==23.0.0
 # Streamlit for interactive web applications
 streamlit==1.28.1
 # Data analysis and manipulation
