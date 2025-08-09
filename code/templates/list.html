@@ -1,38 +1,195 @@
+
 {% extends "layout.html" %}
 {% block title %}
 List All Students
 {% endblock %}
 {% block content %}
-<CENTER>
-        <table border="1px">
-            <h1>ALL REGISTER USERS</h1>
-            <thead>
-                <td><strong>Student ID</strong></td>
-                <td><strong>Name</strong></td>
-                <td><strong>loginid</strong></td>
-                <td><strong>email</strong></td>
-                <td><strong>password</strong></td>
-                <td><strong>Address</strong></td>
-                <td><strong>City</strong></td>
-                <td><strong>Zip</strong></td>
-                <td><strong>Eadit</strong></td>
-                <td><strong>Delete</strong></td>
-            </thead>
+<style>
+.student-table-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 40px auto 20px auto;
+    background: rgba(255,255,255,0.15);
+    border-radius: 22px;
+    box-shadow: 0 6px 40px rgba(0,0,0,0.18);
+    padding: 30px 26px 24px 26px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    overflow-x: visible; 
+}
 
-            {% for row in rows %}
+.student-table-title {
+    color: #2d2147;
+    font-size: 2.1rem;
+    font-weight: 700;
+    text-align: left;
+    letter-spacing: 1px;
+    margin-bottom: 28px;
+    margin-left: 7px;
+    text-shadow: 0 2px 6px rgba(0,0,0,0.09);
+}
+.student-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: rgba(255,255,255,0.68);
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(88,88,138,0.09);
+    overflow: visible;
+    font-size: 1.08rem;
+}
+.student-table th {
+    white-space: nowrap;   
+    font-size: 1.09rem;
+    padding: 18px 12px;
+   
+}
+
+.student-table thead th {
+    background: rgba(53,34,90,0.15);
+    font-weight: 700;
+    color: #2d2147;
+    border-bottom: 2.5px solid #d9cffe;
+    font-size: 1.05rem;
+}
+.student-table tbody tr {
+    transition: background 0.18s;
+}
+.student-table tbody tr:hover {
+    background: rgba(146, 110, 205, 0.11);
+}
+.student-table td {
+    color: #2b2836;
+    border-bottom: 1.5px solid #eee;
+}
+.student-table td:last-child,
+.student-table th:last-child {
+    text-align: center;
+}
+.student-table input[type="submit"] {
+    padding: 6px 17px;
+    background: linear-gradient(90deg, #9271ef 35%, #6f49bb 100%);
+    border: none;
+    border-radius: 15px;
+    color: #fff;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    margin: 0 3px;
+    transition: background 0.15s;
+    box-shadow: 0 1px 6px rgba(142,115,200,0.07);
+}
+.student-table input[type="submit"]:hover {
+    background: linear-gradient(90deg, #7b50d4 35%, #3e295c 100%);
+}
+@media (max-width: 1400px) {
+    .student-table-container, .student-table {
+        max-width: 98vw;
+    }
+}
+@media (max-width: 700px) {
+    .student-table-container {
+        padding: 10px 2vw 10px 2vw;
+    }
+    .student-table-title {
+        font-size: 1.3rem;
+        margin-bottom: 17px;
+    }
+    .student-table th, .student-table td {
+        padding: 8px 7px;
+        font-size: 0.99rem;
+        max-width: 90px;
+    }
+}
+</style>
+<div class="student-table-container">
+    <div class="student-table-title">Registered Users</div>
+    <table class="student-table">
+        <thead>
+            <tr>
+                <th>Student ID</th>
+                <th>Name</th>
+                <th>loginid</th>
+                <th>email</th>
+                <th>password</th>
+                <th>Address</th>
+                <th>City</th>
+                <th>Zip</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for row in rows %}
             <tr>
                 <td>{{ row["rowid"] }}</td>
                 <td>{{ row["name"] }}</td>
                 <td>{{ row["loginid"] }}</td>
                 <td>{{ row["email"] }}</td>
                 <td>{{ row["password"] }}</td>
-                <td> {{ row["addr"]}}</td>
+                <td>{{ row["addr"] }}</td>
                 <td>{{ row["city"] }}</td>
                 <td>{{ row["zip"] }}</td>
-                <td><form action="{{url_for('edit')}}" method="POST"><input type="hidden" name="id" value="{{ row['rowid'] }}"><input type="submit" value="Edit"></form> </td>
-                <td><form onsubmit="return confirm('Are you sure you want to DELETE this Student from the Database?');" action="{{url_for('delete')}}" method="POST"><input type="hidden" name="id" value="{{ row['rowid'] }}"><input type="submit" value="Delete"></form> </td>
+                <td>
+                    <form action="{{url_for('edit')}}" method="POST" style="display:inline;">
+                        <input type="hidden" name="id" value="{{ row['rowid'] }}">
+                        <input type="submit" value="Edit">
+                    </form>
+                </td>
+                <td>
+                    <form onsubmit="return confirm('Are you sure you want to DELETE this Student from the Database?');" action="{{url_for('delete')}}" method="POST" style="display:inline;">
+                        <input type="hidden" name="id" value="{{ row['rowid'] }}">
+                        <input type="submit" value="Delete">
+                    </form>
+                </td>
             </tr>
-            {% endfor %}
-        </table>
-        </CENTER>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+<!-- Scroll to Top Button -->
+<style>
+#scrollToTopBtn {
+  display: none;
+  position: fixed;
+  bottom: 32px;
+  right: 36px;
+  z-index: 1200;
+  background: #fff;
+  color: #292929;
+  border: none;
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  font-size: 2rem;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+  cursor: pointer;
+  opacity: 0.9;
+  transition: background 0.17s, color 0.17s, opacity 0.18s;
+}
+#scrollToTopBtn:hover {
+  background: #292929;
+  color: #fff;
+  opacity: 1;
+}
+</style>
+
+<button id="scrollToTopBtn" title="Scroll to top">&#8679;</button>
+<script>
+window.addEventListener('scroll', function() {
+  var btn = document.getElementById('scrollToTopBtn');
+  if (window.scrollY > 150) {
+    btn.style.display = 'block';
+  } else {
+    btn.style.display = 'none';
+  }
+});
+document.getElementById('scrollToTopBtn').onclick = function() {
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+</script>
+
 {% endblock %}
+
+
+

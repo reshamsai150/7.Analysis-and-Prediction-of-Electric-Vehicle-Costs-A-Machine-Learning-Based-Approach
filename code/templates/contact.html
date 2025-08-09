@@ -1,0 +1,173 @@
+{% extends "layout.html" %}
+{% block title %}Contact Us{% endblock %}
+
+{% block extra_style %}
+<style>
+
+  html, body { margin: 0; padding: 0; overflow-x: hidden; } 
+  body {
+    min-height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: url("{{ url_for('static', filename='img.jpg') }}")
+                no-repeat center center fixed !important;
+    background-size: cover !important;
+  }
+ 
+  .navbar { position: sticky !important; top: 0; }
+  .main-content { margin-top: 0 !important; padding: 24px 0 92px !important; }
+</style>
+{% endblock %}
+
+{% block content %}
+<style>
+ 
+  .contact-page-overlay{
+    display:flex; align-items:center; justify-content:center;
+    padding: 24px 12px;       
+  }
+
+  .contact-container{
+    display:flex;
+    width: min(1100px, 96vw);   
+    background: rgba(255,255,255,0.95);
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(0,0,0,.18);
+    backdrop-filter: saturate(1.05);
+  }
+
+  .contact-left{
+    flex: 1;
+    background:#6a4de8;
+    padding: 28px;
+    color:#fff; text-align:center;
+    display:flex; flex-direction:column; justify-content:center;
+  }
+  .contact-left img{ max-width:170px; margin:0 auto 16px; display:block; }
+  .contact-left h3{ margin:0 0 8px; }
+  .contact-left p{ margin:0; opacity:.95; }
+
+  .contact-right{
+    position:relative; flex: 1.25;
+    padding: 28px;
+    color:#000;
+    background: linear-gradient(180deg, rgba(255,255,255,.98), rgba(255,255,255,.92));
+  }
+  .contact-right h3{ margin-bottom:14px; color:#6a4de8; }
+
+  .contact-form{ max-width: 560px; }
+  .contact-form label{
+    display:block; font-size:.9rem; margin:10px 0 4px; font-weight:600;
+  }
+  .contact-form input,.contact-form textarea{
+    width:100%; padding:10px;
+    border:1px solid #ddd; border-radius:10px; font-size:.95rem;
+    outline:none; transition:border-color .2s, box-shadow .2s;
+    background:#fff;
+  }
+  .contact-form input:focus,.contact-form textarea:focus{
+    border-color:#6a4de8; box-shadow:0 0 0 3px rgba(106,77,232,.15);
+  }
+  .contact-form input:invalid, .contact-form textarea:invalid{ border-color:#e76a6a; }
+  .contact-form textarea{ resize:vertical; min-height:110px; }
+
+  .contact-form button{
+    width: 100%;
+    background:#6a4de8; color:#fff; border:none;
+    padding:12px 20px; border-radius:10px; cursor:pointer;
+    margin-top:16px; font-size:1rem;
+  }
+  .contact-form button:hover{ background:#573dcf; }
+
+  /* Toast popup */
+  .toast{
+    position:fixed; left:50%; bottom:28px; transform:translateX(-50%) translateY(20px);
+    background:#222; color:#fff; padding:12px 18px; border-radius:10px;
+    box-shadow:0 8px 24px rgba(0,0,0,.25);
+    opacity:0; pointer-events:none; transition:all .25s ease;
+    z-index:9999; font-weight:600;
+  }
+  .toast.show{ opacity:1; transform:translateX(-50%) translateY(0); }
+
+  @media (max-width: 900px){
+    .contact-container{ flex-direction:column; width: min(640px, 96vw); }
+    .contact-right, .contact-left{ padding:22px; }
+    .contact-left img{ max-width:132px; }
+    .contact-form{ max-width:100%; }
+  }
+</style>
+
+<div class="contact-page-overlay">
+  <div class="contact-container">
+    <!-- Left illustration -->
+    <div class="contact-left">
+      <img src="{{ url_for('static', filename='contact.png') }}" alt="Contact Illustration">
+      <h3>GET IN TOUCH</h3>
+      <p>Available 24/7 — we’re here to help you anytime.</p>
+    </div>
+
+    <!-- Right form -->
+    <div class="contact-right">
+      <h3>Contact Us</h3>
+      <form class="contact-form" method="POST" action="/contact" id="contactForm" novalidate>
+        <label for="name">Name</label>
+        <input id="name" name="name" placeholder="Full Name" required minlength="2">
+
+        <label for="company">Company</label>
+        <input id="company" name="company" placeholder="Company name">
+
+        <label for="phone">Phone</label>
+        <input id="phone" name="phone" placeholder="Phone number"
+               pattern="[0-9]{10}" title="Enter a 10-digit number" inputmode="numeric">
+
+        <label for="email">Email Address</label>
+        <input id="email" name="email" type="email" placeholder="Your best email address" required>
+
+        <label for="subject">Message Subject</label>
+        <input id="subject" name="subject" placeholder="Briefly describe your message" required minlength="3">
+
+        <label for="message">Message</label>
+        <textarea id="message" name="message" placeholder="Write your message here" required minlength="5"></textarea>
+
+        <button type="submit">Send Message</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div id="toast" class="toast">Message sent!</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const form  = document.getElementById('contactForm');
+    const toast = document.getElementById('toast');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (!form.reportValidity()) return;
+
+      const fd = new FormData(form);
+      try {
+        const res = await fetch(form.action, { method: 'POST', body: fd });
+        if (res.ok) {
+          form.reset();
+          showToast('✅ Message sent!');
+        } else {
+          showToast('⚠️ Could not send. Try again.');
+        }
+      } catch {
+        showToast('⚠️ Network error. Try again.');
+      }
+    });
+
+    function showToast(msg){
+      toast.textContent = msg;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2800);
+    }
+  });
+</script>
+{% endblock %}
+
+
