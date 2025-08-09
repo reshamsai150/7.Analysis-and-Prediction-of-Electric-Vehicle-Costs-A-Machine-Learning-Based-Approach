@@ -519,6 +519,21 @@ def dashboard():
     chart = gen_dashboard()
     return render_template("user/dashboard.html",chart=chart)
 
+
+@app.route("/contact", methods=["GET", "POST"])
+def contact():
+    if request.method == "POST":
+        name = request.form.get("name")
+        email = request.form.get("email")
+        company = request.form.get("company")
+        phone = request.form.get("phone")
+        subject = request.form.get("subject")
+        message = request.form.get("message")
+        # TODO: save/send as needed
+        return render_template("contact.html", success=True)
+    return render_template("contact.html")
+
+
 if __name__ == '__main__':
     app.run(debug=True,port=8000)
 
