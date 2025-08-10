@@ -3,11 +3,139 @@
 Student Flask App with CRUD
 {% endblock %}
 {% block content %}
+<style>
+body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+ @keyframes h1-intro-animation {/*left-fade in*/
+    from {
+        opacity: 0;
+        transform: translateX(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* --- H1 Title with Linear Gradient and Animation --- */
+h1 {
+    text-align: center;
+    font-size: 3rem;
+    font-weight: bold;
+    margin-bottom: 40px;
+    background: linear-gradient(90deg, #3498db, #8e44ad);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    
+    /* Apply the new animation */
+    animation: h1-intro-animation 0.5s ease-out forwards;
+}
+
+ .table-container {
+  width: 100%; /* Make the container responsive */
+  max-width: 1200px; /* Limit the maximum width on larger screens */
+  margin: 20px auto;
+  background: #fff;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08); /* More pronounced shadow */
+  border-radius: 8px; /* Slightly less rounded corners */
+  overflow-x: auto;
+  animation: fade-in 0.5s ease-out; /* Initial fade-in animation */
+ }
+
+ @keyframes fade-in {
+  from {
+   opacity: 0;
+   transform: translateY(-10px);
+  }
+  to {
+   opacity: 1;
+   transform: translateY(0);
+  }
+ }
+
+ .table-container table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 14px; /* Slightly larger font size */
+  color: #444;
+ }
+
+ .table-container th {
+  background-color: #34495e; /* Darker header background */
+  color: #fff;
+  padding: 10px;
+  text-align: left;
+  font-weight: bold;
+  border-bottom: 2px solid #2c3e50; /* Stronger bottom border for headers */
+  transition: background-color 0.3s ease; /* Hover transition for headers */
+ }
+
+ .table-container th:hover {
+  background-color: #2c3e50;
+ }
+
+ .table-container td {
+  padding: 8px;
+  border-bottom: 1px solid #eee; /* Lighter row separator */
+  transition: background-color 0.3s ease; /* Hover transition for rows */
+ }
+
+ .table-container tr:nth-child(even) td {
+  background-color: #f9f9f9;
+ }
+
+ .table-container tr:hover td {
+  background-color: #e8f5e9; /* Lighter hover color */
+ }
+
+ /* Scrollbar styling */
+ .table-container::-webkit-scrollbar {
+  height: 10px;
+ }
+
+ .table-container::-webkit-scrollbar-thumb {
+  background: #a7b1bd;
+  border-radius: 5px;
+ }
+
+ .table-container::-webkit-scrollbar-thumb:hover {
+  background: #788a9c;
+ }
+
+ /* Responsive adjustments */
+ @media (max-width: 768px) {
+  body {
+   padding: 10px;
+  }
+  h1 {
+   font-size: 3rem;
+   margin-bottom: 20px;
+  }
+  .table-container {
+   padding: 10px;
+   border-radius: 5px;
+  }
+  .table-container th,
+  .table-container td {
+   padding: 10px 5px; /* Less padding on smaller screens */
+   font-size: 14px;
+  }
+ }
+</style>
+
 <h1>Welcome to our dataset</h1>
 <div>
-    <p><h3 align="center" style="color:white; font-weight:bold;">View Dataset</h3></p>
-      <pre>
-           {{data|safe}}
-      </pre>
+      <div class="table-container">
+          {{data|safe}}
+     </div>
+
 </div>
 {% endblock %}
