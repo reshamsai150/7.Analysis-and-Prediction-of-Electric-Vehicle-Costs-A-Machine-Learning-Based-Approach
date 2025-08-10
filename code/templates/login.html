@@ -1,112 +1,154 @@
-<!-- Design LogIn Page for the website from scratch -->
-<!-- Contributor : 6vam4arya -->
+{% extends "layout.html" %}
+{% block title %}Student Login | Student Flask App{% endblock %}
+{% block content %}
+<style>
+body {
+    background: url("{{ url_for('static', filename='img2.jpg') }}") no-repeat center center fixed !important;
+    background-size: cover !important;
+    transition: background-image 0.3s;
+}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login to ZipTales</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="../static/login.css"/>
-</head>
-<body class="bg-gradient">
-    <div class="container">
-        <div class="text-center">            
-            <h2 class="title">Welcome to Student Flask App</h2>
-            <p class="subtitle">Sign in to verify news and join our community</p>
-        </div>
+/* Center the login box absolutely and keep it fixed on viewport */
+.login-glass-container {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 20;
+    pointer-events: auto; /* Allow clicks everywhere inside */
+}
+.glass-login-box {
+    width: 380px;
+    padding: 38px 34px 30px 34px;
+    border-radius: 22px;
+    background: rgba(255,255,255,0.15);
+    box-shadow: 0 8px 40px 0 rgba(62,59,163,0.17), 0 1.5px 10px 0 rgba(140,80,255,0.07);
+    backdrop-filter: blur(16px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    pointer-events: auto;
+}
 
-        <div class="form-container">
-            <form id="login-form" class="form" onsubmit="handleSubmit(event)">
-                <div id="error-message" class="error-message hidden"></div>
+.glass-login-box h2 {
+    color: #fff;
+    font-size: 2rem;
+    letter-spacing: 1px;
+    font-weight: bold;
+    margin-bottom: 26px;
+    text-align: center;
+    text-shadow: 0 3px 10px rgba(80,0,120,0.13);
+}
 
-                <div class="input-group">
-                    <label for="email" class="label">Email Address</label>
-                    <div class="input-wrapper">
-                        <i class="fas fa-envelope icon"></i>
-                        <input type="email" id="email" required placeholder="Enter your email" class="input" />
-                    </div>
-                </div>
+.input-group-login {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    background: rgba(255,255,255,0.25);
+    border-radius: 8px;
+    margin-bottom: 22px;
+    padding: 10px 13px;
+    position: relative;
+    box-shadow: 0 1px 6px 0 rgba(80,100,150,0.04);
+}
 
-                <div class="input-group">
-                    <label for="password" class="label">Password</label>
-                    <div class="input-wrapper">
-                        <i class="fas fa-lock icon"></i>
-                        <input type="password" id="password" required placeholder="Enter your password" class="input" />
-                        <button type="button" class="toggle-password" onclick="togglePasswordVisibility()">
-                            <i class="fas fa-eye" id="eye-icon"></i>
-                        </button>
-                    </div>
-                </div>
+.input-group-login input {
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 1.11rem;
+    padding: 8px 3px 7px 2px;
+    flex: 1;
+    color: #111 !important; /* Dark text for visibility */
+    caret-color: #111;
+    font-family: inherit;
+    letter-spacing: 1px;
+}
 
-                <div class="options">
-                    <div class="remember-me">
-                        <input type="checkbox" id="remember-me" />
-                        <label for="remember-me" class="label">Remember me</label>
-                    </div>
-                    <button type="button" class="forgot-password" onclick="showForgotPassword()">Forgot password?</button>
-                </div>
+.input-group-login input::placeholder {
+    color: #222 !important;
+    opacity: 1;
+}
 
-                <button type="submit" class="submit-button">Sign In</button>
+.input-group-login input[type="password"] {
+    color: #111 !important;
+}
 
-                <div class="divider">
-                    <span>Or continue with</span>
-                </div>
+.input-group-login input:-webkit-autofill,
+.input-group-login input:-webkit-autofill:focus {
+    -webkit-text-fill-color: #111 !important;
+    transition: background-color 5000s ease-in-out 0s;
+}
 
-                <button type="button" class="google-button" onclick="handleGoogleLogin()">
-                    <i class="fab fa-chrome"></i>
-                    Sign in with Google
-                </button>
-            </form>
+.login-icon {
+    font-size: 1.25rem;
+    color: #fff;
+    margin-left: 8px;
+    cursor: pointer;
+    opacity: 0.7;
+}
 
-            <div class="signup-link">
-                <p>Don't have an account? <a href="/signup" class="link">Sign up here</a></p>
+.login-btn {
+    width: 100%;
+    padding: 13px 0;
+    border-radius: 22px;
+    border: none;
+    background: linear-gradient(90deg, #a770ef 0%, #f6d365 100%);
+    color: #fff;
+    font-size: 1.17rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+    margin-top: 4px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    box-shadow: 0 2px 18px 0 rgba(167,112,239,0.13);
+    transition: background 0.23s, box-shadow 0.23s;
+}
+
+.login-btn:hover {
+    background: linear-gradient(90deg, #f6d365 0%, #a770ef 100%);
+    box-shadow: 0 4px 24px 0 rgba(80,50,150,0.19);
+}
+
+.login-glass-container form {
+    width: 100%;
+}
+
+.login-error {
+    color: #ffc9cb;
+    background: rgba(255,0,0,0.10);
+    padding: 5px 12px;
+    border-radius: 7px;
+    text-align: center;
+    margin-bottom: 13px;
+    font-size: 1rem;
+}
+
+@media (max-width: 600px) {
+    .glass-login-box { width: 96vw; padding: 26px 4vw 18px 4vw; }
+}
+</style>
+
+<div class="login-glass-container">
+    <div class="glass-login-box">
+        <h2>Login</h2>
+        {% if error %}
+            <div class="login-error">{{ error }}</div>
+        {% endif %}
+        <form action="{{ url_for('login') }}" method="POST">
+            <div class="input-group-login">
+                <input type="text" id="loginid" name="loginid" placeholder="Login ID" required>
+                <span class="login-icon">&#128100;</span>
             </div>
-        </div>
+            <div class="input-group-login">
+                <input type="password" id="password" name="password" placeholder="Password" required>
+                <span class="login-icon">&#128274;</span>
+            </div>
+            <button type="submit" class="login-btn">Login</button>
+        </form>
     </div>
+</div>
 
-    <script>
-        function handleSubmit(event) {
-            event.preventDefault();
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            const errorMessage = document.getElementById('error-message');
-
-            errorMessage.classList.add('hidden');
-
-            // Simulate login process
-            if (email === "test@example.com" && password === "password") {
-                alert("Login successful!");
-                // Redirect to home or dashboard
-            } else {
-                errorMessage.textContent = "Invalid email or password. Please check your credentials and try again.";
-                errorMessage.classList.remove('hidden');
-            }
-        }
-
-        function togglePasswordVisibility() {
-            const passwordInput = document.getElementById('password');
-            const eyeIcon = document.getElementById('eye-icon');
-            if (passwordInput.type === "password") {
-                passwordInput.type = "text";
-                eyeIcon.classList.remove('fa-eye');
-                eyeIcon.classList.add('fa-eye-slash');
-            } else {
-                passwordInput.type = "password";
-                eyeIcon.classList.remove('fa-eye-slash');
-                eyeIcon.classList.add('fa-eye');
-            }
-        }
-
-        function showForgotPassword() {
-            alert("Forgot password functionality not implemented.");
-        }
-
-        function handleGoogleLogin() {
-            alert("Google login functionality not implemented.");
-        }
-    </script>
-</body>
-</html>
+{% endblock %}
