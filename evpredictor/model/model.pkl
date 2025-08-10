@@ -1,0 +1,3 @@
+import joblib
+joblib.dump(model, "model/model.pkl")
+

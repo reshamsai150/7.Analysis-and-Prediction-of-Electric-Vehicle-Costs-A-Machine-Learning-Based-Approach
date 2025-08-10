@@ -1,0 +1,2 @@
+import joblib
+joblib.dump(preprocessor, "model/preprocessor.pkl")
