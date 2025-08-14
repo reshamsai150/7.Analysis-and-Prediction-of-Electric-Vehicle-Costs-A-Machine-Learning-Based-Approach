@@ -187,6 +187,7 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: 80% center;
     border-radius: 0 14px 14px 0;
     min-height: 430px;
     min-width: 320px;
@@ -222,6 +223,9 @@
                 min-height: 210px;
                 max-height: 210px;
                 border-radius: 0 0 8px 8px;
+
+                object-fit: cover;              /* Ensures it fills the section without stretching */
+                object-position: right center;  /* Focuses on the right side of the image */
             }
         }
     </style>
@@ -340,7 +344,7 @@
                 </form>
             </div>
             <div class="image-section">
-                <img src="{{ url_for('static', filename='img2.png') }}" alt="img2">
+                <img src="{{ url_for('static', filename='img2.jpg') }}" alt="img2">
             </div>
         </div>
     </div>
