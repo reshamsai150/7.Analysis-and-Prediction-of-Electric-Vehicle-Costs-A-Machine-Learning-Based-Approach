@@ -18,3 +18,4 @@ plotly==5.17.0
 # Statistical data visualization
 seaborn==0.12.2
 cython==3.0.2
+folium==0.15.1
