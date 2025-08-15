@@ -9,7 +9,7 @@ from flask import Flask
 from flask import render_template
 from flask import request,session, flash
 #from ev_stations.maps import ev_map
-from ev_stations.maps import ev_map as generate_map 
+from .ev_stations.maps import ev_map as generate_map 
 from ev_stations.dash import gen_dashboard
 
 import sqlite3
