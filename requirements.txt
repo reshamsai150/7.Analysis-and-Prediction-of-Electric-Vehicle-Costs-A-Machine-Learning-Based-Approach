@@ -1,5 +1,4 @@
 Flask==3.0.3
-
 # WSGI HTTP Server for UNIX
 gunicorn==23.0.0
 # Streamlit for interactive web applications
@@ -9,7 +8,7 @@ pandas==2.0.3
 # Machine learning library
 scikit-learn==1.4.2
 # Fundamental package for array computing
-numpy==1.24.3
+numpy==1.26.4
 # Python plotting package
 matplotlib==3.7.5
 # Lightweight pipelining with Python functions
