@@ -7,7 +7,7 @@ streamlit==1.28.1
 # Data analysis and manipulation
 pandas==2.0.3
 # Machine learning library
-scikit-learn==1.2.2
+scikit-learn==1.4.2
 # Fundamental package for array computing
 numpy==1.24.3
 # Python plotting package
