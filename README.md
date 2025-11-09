@@ -1,3 +1,11 @@
+# 🚗 Analysis and Prediction of Electric Vehicle Costs
+
+![GitHub License](https://img.shields.io/github/license/reshamsai150/7.Analysis-and-Prediction-of-Electric-Vehicle-Costs-A-Machine-Learning-Based-Approach)
+![GitHub last commit](https://img.shields.io/github/last-commit/reshamsai150/7.Analysis-and-Prediction-of-Electric-Vehicle-Costs-A-Machine-Learning-Based-Approach)
+![GitHub issues](https://img.shields.io/github/issues/reshamsai150/7.Analysis-and-Prediction-of-Electric-Vehicle-Costs-A-Machine-Learning-Based-Approach)
+![GitHub stars](https://img.shields.io/github/stars/reshamsai150/7.Analysis-and-Prediction-of-Electric-Vehicle-Costs-A-Machine-Learning-Based-Approach)
+
+
 # ⚡ Electric Vehicle Cost Analysis & Prediction
 
 A lightweight, open-source web application for analyzing and predicting the cost of electric vehicles (EVs) using machine learning. This app simplifies EV data exploration, provides user management, and predicts EV prices based on technical specifications.
@@ -69,7 +77,7 @@ A lightweight, open-source web application for analyzing and predicting the cost
 ### Installation Steps
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/ev-price-predictor.git
+git clone https://github.com/reshamsai150/7.Analysis-and-Prediction-of-Electric-Vehicle-Costs-A-Machine-Learning-Based-Approach.git
 cd ev-price-predictor
 
 # Create and activate a virtual environment
@@ -153,3 +161,12 @@ This project is licensed under the [MIT License](LICENSE).
 ---
 
 Built with ❤️ for a greener future.
+
+
+## 🙌 Contributors
+
+Thanks to all the amazing people who help improve this project 💖
+
+<a href="https://github.com/reshamsai150/7.Analysis-and-Prediction-of-Electric-Vehicle-Costs-A-Machine-Learning-Based-Approach/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=reshamsai150/7.Analysis-and-Prediction-of-Electric-Vehicle-Costs-A-Machine-Learning-Based-Approach" />
+</a>

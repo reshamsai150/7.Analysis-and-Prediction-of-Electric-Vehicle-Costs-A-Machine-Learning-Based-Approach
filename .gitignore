@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.env/
+venv/
+env/
+
+# Archives
+*.rar
+*.zip
+*.7z
+
+# System
+.DS_Store
+Thumbs.db
+
+# Model/Cache
+*.h5
+*.pkl
+*.joblib
